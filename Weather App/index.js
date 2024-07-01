@@ -29,7 +29,25 @@ async function getWeatherData(city) {
 
 function displayWeatherData(data) {}
 
-function getWeatherEmoji(weatherId) {}
+function getWeatherEmoji(weatherId) {
+  if (weatherId >= 200 && weatherId < 300) {
+    return "⛈"; // Thunderstorm
+  } else if (weatherId >= 300 && weatherId < 500) {
+    return "🌧"; // Drizzle
+  } else if (weatherId >= 500 && weatherId < 600) {
+    return "🌦"; // Rain
+  } else if (weatherId >= 600 && weatherId < 700) {
+    return "❄"; // Snow
+  } else if (weatherId >= 700 && weatherId < 800) {
+    return "🌫"; // Atmosphere (fog, mist, etc.)
+  } else if (weatherId === 800) {
+    return "☀"; // Clear
+  } else if (weatherId > 800 && weatherId < 900) {
+    return "☁"; // Clouds
+  } else {
+    return "🌈"; // Default
+  }
+}
 
 function displayError(message) {
   const errorDisplay = document.createElement("p");
@@ -61,12 +79,21 @@ function displayWeatherInfo(data) {
 
   cityDisplay.textContent = city;
   tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
+  humidityDisplay.textContent = `Humidity: ${humidity}%`;
+  descDisplay.textContent = description;
+  weatherEmoji.textContent = getWeatherEmoji(id);
 
   cityDisplay.classList.add("cityDisplay");
   tempDisplay.classList.add("tempDisplay");
+  humidityDisplay.classList.add("humidity.Display");
+  descDisplay.classList.add("descDisplay");
+  weatherEmoji.classList.add("weatherEmoji");
 
   card.appendChild(cityDisplay);
   card.appendChild(tempDisplay);
+  card.appendChild(humidityDisplay);
+  card.appendChild(descDisplay);
+  card.appendChild(weatherEmoji);
 }
 
 /**
