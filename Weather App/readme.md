@@ -29,3 +29,11 @@ PKs Weather App is a simple, responsive weather application that fetches weather
    ```bash
    git clone https://github.com/your-username/weather-app.git
    ```
+
+2. Open index.html in your web browser.
+
+### Usage
+
+1. Enter the name of a city in the input field.
+2. Click the "Get your Weather" button.
+3. View the current weather information displayed on the screen.
