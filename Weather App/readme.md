@@ -41,9 +41,9 @@ PKs Weather App is a simple, responsive weather application that fetches weather
 ### Contributing
 
 1. Fork the repository.
-2. Create your feature branch (git checkout -b feature/your-feature).
-3. Commit your changes (git commit -am 'Add some feature').
-4. Push to the branch (git push origin feature/your-feature).
+2. Create your feature branch (_git checkout -b feature/your-feature_).
+3. Commit your changes (_git commit -am 'Add some feature'_).
+4. Push to the branch (_git push origin feature/your-feature_).
 5. Create a new Pull Request.
 
 ## License
