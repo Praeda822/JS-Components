@@ -27,8 +27,6 @@ async function getWeatherData(city) {
   );
 }
 
-function displayWeatherData(data) {}
-
 function getWeatherEmoji(weatherId) {
   if (weatherId >= 200 && weatherId < 300) {
     return "⛈"; // Thunderstorm
@@ -54,7 +52,8 @@ function displayError(message) {
   errorDisplay.textContent = message;
   errorDisplay.classList.add("errorDisplay");
 
-  card.textContent = "";
+  // Remember to clear input fields!!!!
+  card.innerHTML = "";
   card.style.display = "flex";
   card.appendChild(errorDisplay);
 }
