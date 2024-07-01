@@ -3,9 +3,12 @@ const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
 const API_KEY = "47a27afd0c72eed8a8b35d8efa569251"; // Open Weather API Key
 
-weatherForm.addEventListener("submit", async (e) => {
-  e.preventDefault();
-
+// Refactored event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    const weatherForm = document.querySelector('.weather-form');
+    weatherForm.addEventListener('submit', handleWeatherFormSubmit);
+  });
+  
   const city = cityInput.value;
 
   if (city) {
@@ -58,6 +61,10 @@ function displayError(message) {
   card.appendChild(errorDisplay);
 }
 
+/**
+ * Displays weather information on the screen.
+ * @param {Object} data - The weather data object.
+ */
 function displayWeatherInfo(data) {
   const {
     name: city,
