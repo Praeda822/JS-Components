@@ -38,6 +38,29 @@ async function getWeatherData(city) {
 }
 
 /**
+ * Displays weather information on the screen.
+ * @param {Object} data - The weather data object.
+ */
+function displayWeatherInfo(data) {
+  const {
+    name: city,
+    main: { temp, humidity },
+    weather: [{ description, id }],
+  } = data;
+  console.log(data);
+
+  const card = document.querySelector(".weather-card");
+  card.innerHTML = `
+    <h1 class="weather-card__city">${city}</h1>
+    <p class="weather-card__temp">${(temp - 273.15).toFixed(1)}°C</p>
+    <p class="weather-card__humidity">Humidity: ${humidity}%</p>
+    <p class="weather-card__desc">${description}</p>
+    <p class="weather-card__emoji">${getWeatherEmoji(id)}</p>
+  `;
+  card.style.display = "flex";
+}
+
+/**
  * Returns a weather emoji based on the weather ID.
  * @param {number} weatherId - The weather condition ID.
  * @returns {string} The corresponding weather emoji.
@@ -62,40 +85,19 @@ function getWeatherEmoji(weatherId) {
   }
 }
 
-function displayError(message) {
-  const errorDisplay = document.createElement("p");
-  errorDisplay.textContent = message;
-  errorDisplay.classList.add("errorDisplay");
-
-  // Remember to clear input fields!!!!
-  card.innerHTML = "";
-  card.style.display = "flex";
-  card.appendChild(errorDisplay);
-}
-
 /**
- * Displays weather information on the screen.
- * @param {Object} data - The weather data object.
+ * Displays an error message on the screen.
+ * @param {string} message - The error message to display.
  */
-function displayWeatherInfo(data) {
-  const {
-    name: city,
-    main: { temp, humidity },
-    weather: [{ description, id }],
-  } = data;
-  console.log(data);
-
+function displayError(message) {
   const card = document.querySelector(".weather-card");
   card.innerHTML = `
-    <h1 class="weather-card__city">${city}</h1>
-    <p class="weather-card__temp">${(temp - 273.15).toFixed(1)}°C</p>
-    <p class="weather-card__humidity">Humidity: ${humidity}%</p>
-    <p class="weather-card__desc">${description}</p>
-    <p class="weather-card__emoji">${getWeatherEmoji(id)}</p>
-  `;
+      <p class="weather-card__error">${message}</p>
+    `;
   card.style.display = "flex";
 }
 
+// Helper function
 /**
  * Fetches JSON data from the specified URL.
  *
@@ -104,6 +106,7 @@ function displayWeatherInfo(data) {
  * @returns {Promise} A promise that resolves to the JSON data.
  * @throws {Error} If the fetch fails, an error is thrown with the specified error message and status code.
  */
+
 const getJSON = function (url, errorMsg = "Something went wrong..") {
   return fetch(url).then((response) => {
     if (!response.ok) throw new Error(`${errorMsg} (${response.status})`);

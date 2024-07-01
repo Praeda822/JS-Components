@@ -10,7 +10,13 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  min-height: 100vh;
   padding: 1rem;
+}
+
+main {
+  width: 100%;
+  max-width: 600px;
 }
 
 .weatherForm {
@@ -23,8 +29,8 @@ body {
   font-weight: bold;
   border: 2px solid rgba(26, 132, 26, 0.225);
   border-radius: 0.6rem;
-  margin: 0.6rem;
-  width: 17.5rem;
+  margin-right: 0.6rem;
+  width: calc(100% - 3rem - 1.2rem);
 }
 
 .weather-form__button {
@@ -43,17 +49,6 @@ body {
   box-shadow: 0.5px 1px 2.25px rgba(0, 0, 0, 0.15);
 }
 
-h1 {
-  font-size: 3.5rem;
-  margin-top: 0;
-  margin-bottom: 2.3rem;
-}
-
-p {
-  font-size: 1.3rem;
-  margin: 0.6rem;
-}
-
 .weather-card {
   background: linear-gradient(
     135deg,
@@ -63,10 +58,13 @@ p {
   padding: 3.25rem;
   box-shadow: 1px 2px 4.5px rgba(0, 0, 0, 0.55);
   min-width: 100%;
-  max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.weather-card--hidden {
+  display: none;
 }
 
 .weather-card__city,
