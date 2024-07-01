@@ -5,18 +5,19 @@
 }
 
 body {
-  font-family: "Montserrat", sans-serrif;
+  font-family: "Montserrat", sans-serif;
   background-color: #fefefe;
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding: 1rem;
 }
 
 .weatherForm {
   margin: 1.9rem;
 }
 
-.cityInput {
+.weather-form__input {
   padding: 1.3rem;
   font-size: 1.7rem;
   font-weight: bold;
@@ -26,7 +27,7 @@ body {
   width: 17.5rem;
 }
 
-button[type="submit"] {
+.weather-form__button {
   padding: 1rem 2rem;
   font-weight: bold;
   font-size: 1.7rem;
@@ -37,7 +38,7 @@ button[type="submit"] {
   cursor: pointer;
 }
 
-button[type="submit"]:hover {
+.weather-form__button:hover {
   background-color: rgba(26, 132, 26, 0.425);
   box-shadow: 0.5px 1px 2.25px rgba(0, 0, 0, 0.15);
 }
@@ -53,47 +54,61 @@ p {
   margin: 0.6rem;
 }
 
-.card {
+.weather-card {
   background: linear-gradient(
     135deg,
     rgba(0, 153, 255, 0.325),
-    rgba(0, 102, 204, 0.8) /*rgba(255, 215, 0, 0.425)*/
+    rgba(0, 102, 204, 0.8)
   );
   padding: 3.25rem;
   box-shadow: 1px 2px 4.5px rgba(0, 0, 0, 0.55);
-  min-width: 17.6rem;
+  min-width: 100%;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.cityDisplay,
-.tempDisplay {
+.weather-card__city,
+.weather-card__temp {
   font-size: 3.3rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.75);
   margin-bottom: 0.3rem;
 }
 
-.humidityDisplay {
+.weather-card__humidity {
   font-weight: bold;
   margin-bottom: 1.6rem;
 }
 
-.descDisplay {
+.weather-card__desc {
   font-style: italic;
   font-weight: bold;
   font-size: 2.6rem;
   margin-bottom: 2rem;
 }
 
-.weatherEmoji {
+.weather-card__emoji {
   margin: 0;
   font-size: 7.6rem;
 }
 
-.errorDisplay {
+.weather-card__error {
   font-size: 2.3rem;
   font-weight: bold;
   color: rgba(0, 0, 0, 0.75);
+}
+
+/* Responsive Breakpoints*/
+@media (max-width: 600px) {
+  .weather-form__input,
+  .weather-card {
+    width: 100%;
+  }
+
+  .weather-form__button {
+    width: 100%;
+    margin-top: 1rem;
+  }
 }
