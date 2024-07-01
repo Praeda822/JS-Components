@@ -4,12 +4,19 @@ const card = document.querySelector(".card");
 const API_KEY = "47a27afd0c72eed8a8b35d8efa569251"; // Open Weather API Key
 
 // Refactored event listeners
-document.addEventListener('DOMContentLoaded', () => {
-    const weatherForm = document.querySelector('.weather-form');
-    weatherForm.addEventListener('submit', handleWeatherFormSubmit);
-  });
-  
-  const city = cityInput.value;
+document.addEventListener("DOMContentLoaded", () => {
+  const weatherForm = document.querySelector(".weather-form");
+  weatherForm.addEventListener("submit", handleWeatherFormSubmit);
+});
+
+/**
+ * Handles the weather form submission.
+ * @param {Event} e - The form submission event.
+ */
+async function handleWeatherFormSubmit(e) {
+  e.preventDefault();
+  const cityInput = document.querySelector(".weather-form__input");
+  const city = cityInput.value.trim();
 
   if (city) {
     try {
@@ -22,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     displayError("Please Enter a city!");
   }
-});
+}
 
 async function getWeatherData(city) {
   return getJSON(
@@ -30,6 +37,11 @@ async function getWeatherData(city) {
   );
 }
 
+/**
+ * Returns a weather emoji based on the weather ID.
+ * @param {number} weatherId - The weather condition ID.
+ * @returns {string} The corresponding weather emoji.
+ */
 function getWeatherEmoji(weatherId) {
   if (weatherId >= 200 && weatherId < 300) {
     return "⛈"; // Thunderstorm
@@ -73,33 +85,15 @@ function displayWeatherInfo(data) {
   } = data;
   console.log(data);
 
-  // Chuck it on the screen
-  card.textContent = "";
+  const card = document.querySelector(".weather-card");
+  card.innerHTML = `
+    <h1 class="weather-card__city">${city}</h1>
+    <p class="weather-card__temp">${(temp - 273.15).toFixed(1)}°C</p>
+    <p class="weather-card__humidity">Humidity: ${humidity}%</p>
+    <p class="weather-card__desc">${description}</p>
+    <p class="weather-card__emoji">${getWeatherEmoji(id)}</p>
+  `;
   card.style.display = "flex";
-
-  const cityDisplay = document.createElement("h1");
-  const tempDisplay = document.createElement("p");
-  const humidityDisplay = document.createElement("p");
-  const descDisplay = document.createElement("p");
-  const weatherEmoji = document.createElement("p");
-
-  cityDisplay.textContent = city;
-  tempDisplay.textContent = `${(temp - 273.15).toFixed(1)}°C`;
-  humidityDisplay.textContent = `Humidity: ${humidity}%`;
-  descDisplay.textContent = description;
-  weatherEmoji.textContent = getWeatherEmoji(id);
-
-  cityDisplay.classList.add("cityDisplay");
-  tempDisplay.classList.add("tempDisplay");
-  humidityDisplay.classList.add("humidity.Display");
-  descDisplay.classList.add("descDisplay");
-  weatherEmoji.classList.add("weatherEmoji");
-
-  card.appendChild(cityDisplay);
-  card.appendChild(tempDisplay);
-  card.appendChild(humidityDisplay);
-  card.appendChild(descDisplay);
-  card.appendChild(weatherEmoji);
 }
 
 /**
