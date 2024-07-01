@@ -37,3 +37,20 @@ PKs Weather App is a simple, responsive weather application that fetches weather
 1. Enter the name of a city in the input field.
 2. Click the "Get your Weather" button.
 3. View the current weather information displayed on the screen.
+
+### Contributing
+
+1. Fork the repository.
+2. Create your feature branch (git checkout -b feature/your-feature).
+3. Commit your changes (git commit -am 'Add some feature').
+4. Push to the branch (git push origin feature/your-feature).
+5. Create a new Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
+
+### Acknowledgments
+
+- OpenWeather for providing the weather API.
+- FontAwesome for providing weather icons.
