@@ -1,47 +1,70 @@
 "use strict";
 
 const display = document.getElementById("display");
-let timer = null;
-let startTime = 0;
-let elapsedTime = 0;
-let isRunning = false;
 
-function start() {
-  if (!isRunning) {
-    startTime = Date.now() - elapsedTime;
-    timer = setInterval(update, 10);
-    isRunning = true;
+class Stopwatch {
+  constructor(displayElement) {
+    this.displayElement = displayElement;
+    this.timer = null;
+    this.startTime = 0;
+    this.elapsedTime = 0;
+    this.isRunning = false;
+  }
+
+  start() {
+    if (!this.isRunning) {
+      this.startTime = Date.now() - this.elapsedTime;
+      this.timer = setInterval(() => this.update(), 10);
+      this.isRunning = true;
+    }
+  }
+
+  stop() {
+    if (this.isRunning) {
+      clearInterval(this.timer);
+      this.elapsedTime = Date.now() - this.startTime;
+      this.isRunning = false;
+    }
+  }
+
+  reset() {
+    clearInterval(this.timer);
+    this.startTime = 0;
+    this.elapsedTime = 0;
+    this.isRunning = false;
+    this.displayElement.innerHTML = "00:00:00:00";
+  }
+
+  update() {
+    const currentTime = Date.now();
+    this.elapsedTime = currentTime - this.startTime;
+    const hours = this.formatTime(
+      Math.floor(this.elapsedTime / (1000 * 60 * 60))
+    );
+    const minutes = this.formatTime(
+      Math.floor((this.elapsedTime / (1000 * 60)) % 60)
+    );
+    const seconds = this.formatTime(Math.floor((this.elapsedTime / 1000) % 60));
+    const milliseconds = this.formatTime(
+      Math.floor((this.elapsedTime % 1000) / 10)
+    );
+
+    this.displayElement.innerHTML = `${hours}:${minutes}:${seconds}:${milliseconds}`;
+  }
+
+  formatTime(time) {
+    return String(time).padStart(2, "0");
   }
 }
 
-function stop() {
-  if (isRunning) {
-    clearInterval(timer);
-    elapsedTime = Date.now() - startTime;
-    isRunning = false;
-  }
-}
+const stopwatch = new Stopwatch(display);
 
-function reset() {
-  clearInterval(timer);
-  startTime = 0;
-  elapsedTime = 0;
-  isRunning = false;
-  display.innerHTML = "00:00:00:00";
-}
-
-function update() {
-  const currentTime = Date.now();
-  elapsedTime = currentTime - startTime;
-  let hours = Math.floor(elapsedTime / (1000 * 60 * 60));
-  let minutes = Math.floor((elapsedTime / (1000 * 60)) % 60);
-  let seconds = Math.floor((elapsedTime / 1000) % 60);
-  let milliseconds = Math.floor((elapsedTime % 1000) / 10);
-
-  hours = String(hours).padStart(2, "0");
-  minutes = String(minutes).padStart(2, "0");
-  seconds = String(seconds).padStart(2, "0");
-  milliseconds = String(milliseconds).padStart(2, "0");
-
-  display.innerHTML = `${hours}:${minutes}:${seconds}:${milliseconds}`;
-}
+document
+  .getElementById("startBtn")
+  .addEventListener("click", () => stopwatch.start());
+document
+  .getElementById("stopBtn")
+  .addEventListener("click", () => stopwatch.stop());
+document
+  .getElementById("resetBtn")
+  .addEventListener("click", () => stopwatch.reset());
