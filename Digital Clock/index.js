@@ -2,7 +2,7 @@
 
 class Clock {
   constructor(displayElement) {
-    this.displayElement = displayElement;
+    this.displayElement = document.getElementById(displayElement);
   }
 
   getFormattedTimeUnit(unit) {
