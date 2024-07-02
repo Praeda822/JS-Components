@@ -55,16 +55,19 @@ class Stopwatch {
   formatTime(time) {
     return String(time).padStart(2, "0");
   }
+
+  init() {
+    document
+      .getElementById("startBtn")
+      .addEventListener("click", () => this.start());
+    document
+      .getElementById("stopBtn")
+      .addEventListener("click", () => this.stop());
+    document
+      .getElementById("resetBtn")
+      .addEventListener("click", () => this.reset());
+  }
 }
 
 const stopwatch = new Stopwatch(display);
-
-document
-  .getElementById("startBtn")
-  .addEventListener("click", () => stopwatch.start());
-document
-  .getElementById("stopBtn")
-  .addEventListener("click", () => stopwatch.stop());
-document
-  .getElementById("resetBtn")
-  .addEventListener("click", () => stopwatch.reset());
+document.addEventListener("DOMContentLoaded", () => stopwatch.init());
