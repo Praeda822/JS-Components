@@ -1,16 +1,33 @@
 "use strict";
 
-function updateClock() {
-  const now = new Date();
-  let hours = now.getHours();
-  const meridiem = hours >= 12 ? "PM" : "AM";
-  hours = hours % 12 || 12;
-  hours = hours.toString().padStart(2, 0);
-  const minutes = now.getMinutes().toString().padStart(2, 0);
-  const seconds = now.getSeconds().toString().padStart(2, 0);
-  const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
-  document.getElementById("clock").innerHTML = timeString;
+class Clock {
+  constructor(displayElement) {
+    this.displayElement = displayElement;
+  }
+
+  getFormattedTimeUnit(unit) {
+    return unit.toString().padStart(2, "0");
+  }
+
+  updateClock() {
+    const now = new Date();
+    let hours = now.getHours();
+    const meridiem = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+    const formattedHours = this.getFormattedTimeUnit(hours);
+    const formattedMinutes = this.getFormattedTimeUnit(now.getMinutes());
+    const formattedSeconds = this.getFormattedTimeUnit(now.getSeconds());
+    const timeString = `${formattedHours}:${formattedMinutes}:${formattedSeconds} ${meridiem}`;
+    this.displayElement.innerHTML = timeString;
+  }
+
+  start() {
+    this.updateClock();
+    setInterval(() => this.updateClock(), 1000);
+  }
 }
 
-updateClock();
-setInterval(updateClock, 1000);
+document.addEventListener("DOMContentLoaded", () => {
+  const clock = new Clock("clock");
+  clock.start();
+});
