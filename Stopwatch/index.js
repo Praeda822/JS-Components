@@ -22,7 +22,13 @@ function stop() {
   }
 }
 
-function reset() {}
+function reset() {
+  clearInterval(timer);
+  startTime = 0;
+  elapsedTime = 0;
+  isRunning = false;
+  display.innerHTML = "00:00:00:00";
+}
 
 function update() {
   const currentTime = Date.now();
