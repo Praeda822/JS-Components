@@ -1,3 +1,6 @@
+// TO DO
+// Obfuscate the API key LOL
+// Refactor a lot of this code to be more effecient (no shit louise)
 const weatherForm = document.querySelector(".weatherForm");
 const cityInput = document.querySelector(".cityInput");
 const card = document.querySelector(".card");
